@@ -33,14 +33,19 @@
 
     <section id="results" class="section results-section" aria-labelledby="results-title">
       <h2 id="results-title">Results</h2>
+      <article aria-labelledby="issue-title" class="result-part" id="issue">
+<h3 id="issue-title">The issue: the command–execution gap</h3>
+<p class="result-copy">Current humanoid BFMs exhibit systematic deviations between desired and executed motions, a discrepancy we call the command–execution gap. A robot can complete a movement while its body drifts from the intended global position or its hands and feet miss the intended contact locations.</p>
+<figure>
+<a aria-label="Open the command and execution comparison at full resolution" href="assets/figures/command-gap.webp">
+<img alt="The same reference motion is sent to a frozen BFM either directly or as an adjusted command. Adjusted commands bring the executed left sidestep and backward walk closer to the blue reference outlines." height="970" src="assets/figures/command-gap.webp" width="2400"/>
+</a>
+</figure>
+</article>
       <article aria-labelledby="tracking-title" class="result-part" id="tracking">
 <h3 id="tracking-title"><span aria-hidden="true" class="result-number">1. </span>We introduce TTCO to improve motion-tracking fidelity in existing humanoid BFMs through test-time compute, without further training.</h3>
 <p class="result-copy">At inference time, the desired motion need not be supplied directly as the command to the BFM. TTCO finds adapted commands through closed-loop simulations of the BFM and robot dynamics. Across three pretrained BFMs and 12,273 AMASS reference motions, TTCO reduces mean global body-position error by 79–84% in simulation.</p>
 <div class="method-figures"><figure>
-<a aria-label="Open the command and execution comparison at full resolution" href="assets/figures/command-gap.webp">
-<img alt="The same reference motion is sent to a frozen BFM either directly or as an adjusted command. Adjusted commands bring the executed left sidestep and backward walk closer to the blue reference outlines." height="970" src="assets/figures/command-gap.webp" width="2400"/>
-</a>
-</figure><figure>
 <a aria-label="Open the TTCO method diagram at full resolution" href="assets/figures/optimization.webp">
 <img alt="TTCO samples candidate commands, evaluates parallel simulated rollouts from the same state, and updates its proposal using costs relative to the reference. It executes the first part of the best command in simulation and replans." height="1040" loading="lazy" src="assets/figures/optimization.webp" width="2400"/>
 </a>
