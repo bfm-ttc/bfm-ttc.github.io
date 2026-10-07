@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="noindex, nofollow, noarchive" name="robots"/>
+<meta content="no-referrer" name="referrer"/>
+<meta content="Test-Time Compute for Humanoid Behavior Foundation Models." name="description"/>
+<title>Test-Time Compute for Humanoid Behavior Foundation Models</title>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3557'/%3E%3Cpath d='M9 9h9a4 4 0 0 1 0 8H9m0-1h10a4 4 0 0 1 0 8H9V9' fill='none' stroke='white' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/>
+<link href="styles.css" rel="stylesheet"/>
+<script defer="" src="page.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main" class="container">
+    <header class="hero">
+<h1>Test-Time Compute for<br class="title-break"/> Humanoid Behavior Foundation Models</h1>
+</header>
+
+    <section id="video" class="section video-section" aria-labelledby="video-title">
+      <h2 id="video-title">Video Demo</h2>
+      <video aria-label="Full research presentation with English narration and embedded subtitles" controls="" id="presentation" playsinline="" poster="assets/posters/presentation.webp" preload="none">
+<source src="assets/videos/presentation.mp4" type="video/mp4"/>
+<a href="assets/videos/presentation.mp4">Download the full presentation.</a>
+</video>
+    </section>
+
+    <section id="abstract" class="section abstract-section" aria-labelledby="abstract-title">
+      <h2 id="abstract-title">Abstract</h2>
+      <p>Humanoid Behavior Foundation Models (BFMs) can execute impressive motions, but downstream applications such as loco-manipulation demand high whole-body positional accuracy. Existing BFMs suffer from a systematic command–execution gap, where executed motions deviate from desired ones. We show that additional test-time compute can improve execution without retraining the BFM. First, we introduce Test-Time Command Optimization (TTCO), which adapts the input command to the specific BFM to produce an executed trajectory closer to the desired motion. TTCO finds such commands by sampling-based optimization through closed-loop simulations of the BFM and robot dynamics. Across three BFMs on the AMASS dataset, TTCO reduces mean global body-position error by 79–84% in simulation. Second, we analyze test-time compute scaling and derive an approximate compute-optimal strategy that can sustain performance gains as the compute budget increases. Third, TTCO can generate BFM-specific action labels from recorded robot trajectories without requiring the original teleoperation body-motion commands. Simulation and real-robot experiments show that these labels are effective for training high-level loco-manipulation policies. This method also supports reusing existing demonstrations across BFMs.</p>
+    </section>
+
+    <section id="results" class="section results-section" aria-labelledby="results-title">
+      <h2 id="results-title">Results</h2>
+      <article aria-labelledby="tracking-title" class="result-part" id="tracking">
+<h3 id="tracking-title"><span aria-hidden="true" class="result-number">1. </span>We introduce TTCO to improve motion-tracking fidelity in existing humanoid BFMs through test-time compute, without further training.</h3>
+<p class="result-copy">At inference time, the desired motion need not be supplied directly as the command to the BFM. TTCO finds adapted commands through closed-loop simulations of the BFM and robot dynamics. Across three pretrained BFMs and 12,273 AMASS reference motions, TTCO reduces mean global body-position error by 79–84% in simulation.</p>
+<div class="method-figures"><figure>
+<a aria-label="Open the command and execution comparison at full resolution" href="assets/figures/command-gap.webp">
+<img alt="The same reference motion is sent to a frozen BFM either directly or as an adjusted command. Adjusted commands bring the executed left sidestep and backward walk closer to the blue reference outlines." height="970" src="assets/figures/command-gap.webp" width="2400"/>
+</a>
+</figure><figure>
+<a aria-label="Open the TTCO method diagram at full resolution" href="assets/figures/optimization.webp">
+<img alt="TTCO samples candidate commands, evaluates parallel simulated rollouts from the same state, and updates its proposal using costs relative to the reference. It executes the first part of the best command in simulation and replans." height="1040" loading="lazy" src="assets/figures/optimization.webp" width="2400"/>
+</a>
+</figure></div>
+<div class="video-selector" data-tabs="">
+<div aria-label="Motion example" class="tab-list">
+<button aria-controls="sidestep-panel" id="sidestep-tab" type="button">Left sidestep</button>
+<button aria-controls="backward-panel" id="backward-tab" type="button">Backward walking</button>
+</div>
+<div aria-labelledby="sidestep-tab" class="tab-panel" id="sidestep-panel">
+<video aria-label="Left sidestep: nominal versus optimized commands in simulation and on a real robot" controls="" loop="" muted="" playsinline="" poster="assets/posters/left-sidestep.webp" preload="none">
+<source src="assets/videos/left-sidestep.mp4" type="video/mp4"/>
+<a href="assets/videos/left-sidestep.mp4">Download the left sidestep video.</a>
+</video>
+</div>
+<div aria-labelledby="backward-tab" class="tab-panel" id="backward-panel">
+<video aria-label="Backward walking: nominal versus optimized commands in simulation and on a real robot" controls="" loop="" muted="" playsinline="" poster="assets/posters/backward-walking.webp" preload="none">
+<source src="assets/videos/backward-walking.mp4" type="video/mp4"/>
+<a href="assets/videos/backward-walking.mp4">Download the backward walking video.</a>
+</video>
+</div>
+</div>
+<div aria-label="Motion tracking results" class="table-scroll" role="region" tabindex="0">
+<table>
+<caption>Mean global body-position error (m)</caption>
+<thead><tr><th scope="col">BFM</th><th scope="col">Nominal</th><th class="ours" scope="col">Optimized</th></tr></thead>
+<tbody>
+<tr><th scope="row">HEFT</th><td>0.271</td><td class="ours">0.057</td></tr>
+<tr><th scope="row">SONIC</th><td>0.615</td><td class="ours">0.127</td></tr>
+<tr><th scope="row">TWIST2</th><td>1.095</td><td class="ours">0.173</td></tr>
+</tbody>
+</table>
+</div>
+</article>
+      <article aria-labelledby="compute-title" class="result-part" id="compute">
+<h3 id="compute-title"><span aria-hidden="true" class="result-number">2. </span>We analyze test-time compute scaling and derive an approximate compute-optimal allocation strategy.</h3>
+<p class="result-copy">The gains from command optimization depend on both the amount of compute and its allocation across candidates, optimization iterations, rollout horizon, and replanning. A surrogate cost model fitted to limited measurements yields a strategy that sustains performance gains as compute increases and generalizes beyond the motions and BFM used for fitting.</p>
+<div class="compute-figure"><figure>
+<a aria-label="Open the compute allocation plot at full resolution" href="assets/figures/compute-strategy.webp">
+<img alt="Measured cost decreases as the compute budget rises from 256 to 8192. The proposed strategy stays close to the best measured configuration and has lower mean regret than Random Forest, RBF, and Gaussian Process strategies." height="1456" loading="lazy" src="assets/figures/compute-strategy.webp" width="2400"/>
+</a>
+</figure></div>
+<figure class="generalization-figure"><a aria-label="Open the compute strategy generalization results at full resolution" href="assets/figures/compute-generalization.webp"><img alt="The compute allocation strategy is applied unchanged to new motions on SONIC, HEFT, and TWIST2; its measured costs stay close to the empirical optimum across the tested budgets." height="758" loading="lazy" src="assets/figures/compute-generalization.webp" width="2401"/></a></figure></article>
+      <article aria-labelledby="robot-title" class="result-part" id="robot">
+<h3 id="robot-title"><span aria-hidden="true" class="result-number">3. </span>We extend test-time compute to high-level policy learning and demonstration reuse across BFMs.</h3>
+<p class="result-copy">Because of the command–execution gap, recorded robot trajectories may not directly serve as action labels for high-level policy learning. We apply TTCO offline to optimize body-motion commands against these trajectories while keeping the target BFM fixed. The optimized commands provide supervision for policy learning and can be re-optimized for a new BFM to reuse the same demonstrations.</p>
+<div class="video-selector" data-tabs="">
+<div aria-label="Real-robot task" class="tab-list">
+<button aria-controls="cup-panel" id="cup-tab" type="button">Cup in basket</button>
+<button aria-controls="parcel-panel" id="parcel-tab" type="button">Parcel bag on shelf</button>
+<button aria-controls="basket-panel" id="basket-tab" type="button">Basket on shelf</button>
+<button aria-controls="bottle-panel" id="bottle-tab" type="button">Bottle in drawer</button>
+</div>
+<div aria-labelledby="cup-tab" class="tab-panel" id="cup-panel">
+<div class="robot-pair">
+<figure><figcaption><strong>SONIC → SONIC</strong></figcaption><video aria-label="Cup in basket with SONIC and optimized command labels" controls="" loop="" muted="" playsinline="" poster="assets/posters/cup-sonic.webp" preload="none"><source src="assets/videos/cup-sonic.mp4" type="video/mp4"/><a href="assets/videos/cup-sonic.mp4">Download the SONIC cup video.</a></video></figure>
+<figure><figcaption><strong>SONIC → HEFT</strong></figcaption><video aria-label="Cup in basket with HEFT and optimized command labels" controls="" loop="" muted="" playsinline="" poster="assets/posters/cup-heft.webp" preload="none"><source src="assets/videos/cup-heft.mp4" type="video/mp4"/><a href="assets/videos/cup-heft.mp4">Download the HEFT cup video.</a></video></figure>
+</div>
+</div>
+<div aria-labelledby="parcel-tab" class="tab-panel" id="parcel-panel">
+<div class="robot-pair">
+<figure><figcaption><strong>SONIC → SONIC</strong></figcaption><video aria-label="Parcel bag on shelf with SONIC and optimized command labels" controls="" loop="" muted="" playsinline="" poster="assets/posters/parcel-sonic.webp" preload="none"><source src="assets/videos/parcel-sonic.mp4" type="video/mp4"/><a href="assets/videos/parcel-sonic.mp4">Download the SONIC parcel video.</a></video></figure>
+<figure><figcaption><strong>SONIC → HEFT</strong></figcaption><video aria-label="Parcel bag on shelf with HEFT and optimized command labels" controls="" loop="" muted="" playsinline="" poster="assets/posters/parcel-heft.webp" preload="none"><source src="assets/videos/parcel-heft.mp4" type="video/mp4"/><a href="assets/videos/parcel-heft.mp4">Download the HEFT parcel video.</a></video></figure>
+</div>
+</div>
+<div aria-labelledby="basket-tab" class="tab-panel" id="basket-panel">
+<div class="robot-pair">
+<figure><figcaption><strong>SONIC → SONIC</strong></figcaption><video aria-label="Basket on shelf with SONIC and optimized command labels" controls="" loop="" muted="" playsinline="" poster="assets/posters/basket-sonic.webp" preload="none"><source src="assets/videos/basket-sonic.mp4" type="video/mp4"/><a href="assets/videos/basket-sonic.mp4">Download the SONIC basket video.</a></video></figure>
+<figure><figcaption><strong>SONIC → HEFT</strong></figcaption><video aria-label="Basket on shelf with HEFT and optimized command labels" controls="" loop="" muted="" playsinline="" poster="assets/posters/basket-heft.webp" preload="none"><source src="assets/videos/basket-heft.mp4" type="video/mp4"/><a href="assets/videos/basket-heft.mp4">Download the HEFT basket video.</a></video></figure>
+</div>
+</div>
+<div aria-labelledby="bottle-tab" class="tab-panel" id="bottle-panel">
+<div class="robot-pair">
+<figure><figcaption><strong>SONIC → SONIC</strong></figcaption><video aria-label="Bottle in drawer with SONIC and optimized command labels" controls="" loop="" muted="" playsinline="" poster="assets/posters/bottle-sonic.webp" preload="none"><source src="assets/videos/bottle-sonic.mp4" type="video/mp4"/><a href="assets/videos/bottle-sonic.mp4">Download the SONIC bottle video.</a></video></figure>
+<figure><figcaption><strong>SONIC → HEFT</strong></figcaption><video aria-label="Bottle in drawer with HEFT and optimized command labels" controls="" loop="" muted="" playsinline="" poster="assets/posters/bottle-heft.webp" preload="none"><source src="assets/videos/bottle-heft.mp4" type="video/mp4"/><a href="assets/videos/bottle-heft.mp4">Download the HEFT bottle video.</a></video></figure>
+</div>
+</div>
+</div>
+<div aria-label="Real-robot task success rates" class="table-scroll" role="region" tabindex="0">
+<table class="robot-results">
+<caption>Real-robot task success rates (%)</caption>
+<thead>
+<tr><th rowspan="2" scope="col">Task</th><th colspan="3" scope="colgroup">SONIC → SONIC</th><th class="group-start" colspan="3" scope="colgroup">SONIC → HEFT</th></tr>
+<tr><th scope="col">Original</th><th class="ours" scope="col">Ours</th><th scope="col">State</th><th class="group-start" scope="col">Original</th><th class="ours" scope="col">Ours</th><th scope="col">State</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">Cup in basket</th><td>55.0</td><td class="ours">55.0</td><td>0.0</td><td class="group-start">0.0</td><td class="ours">40.0</td><td>13.3</td></tr>
+<tr><th scope="row">Parcel bag on shelf</th><td>83.3</td><td class="ours">91.7</td><td>10.0</td><td class="group-start">6.7</td><td class="ours">55.0</td><td>20.0</td></tr>
+<tr><th scope="row">Basket on shelf</th><td>53.3</td><td class="ours">50.0</td><td>0.0</td><td class="group-start">0.0</td><td class="ours">50.0</td><td>8.3</td></tr>
+<tr><th scope="row">Bottle in drawer</th><td>50.0</td><td class="ours">60.0</td><td>0.0</td><td class="group-start">0.0</td><td class="ours">50.0</td><td>6.7</td></tr>
+</tbody>
+<tfoot><tr><th scope="row">Mean</th><td>60.4</td><td class="ours">64.2</td><td>2.5</td><td class="group-start">1.7</td><td class="ours">48.8</td><td>12.1</td></tr></tfoot>
+</table>
+</div>
+</article>
+    </section>
+  </main>
+</body>
+</html>
